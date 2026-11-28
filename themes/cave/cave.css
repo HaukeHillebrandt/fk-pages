@@ -1,0 +1,84 @@
+/* /caveman: the site's own page on a limestone wall, with a few drawings in ochre and charcoal.
+   Loaded after style.css, so it only changes colours and places the drawings. */
+
+body.cave {
+  --bg: #f2ebde;
+  --ink: #2a211b;
+  --ink-2: #47392f;
+  --muted: #6d5d50;
+  --line: #ddd0bb;
+  --wash: #e8ddca;
+  --accent: #9a4a2a;
+  --accent-soft: rgba(154, 74, 42, .6);
+  --accent-wash: rgba(154, 74, 42, .1);
+  --select: rgba(154, 74, 42, .2);
+  --ochre: #a5512c;     /* red ochre */
+  --ochre-2: #c08a3e;   /* yellow ochre */
+  --char: #3b2f28;      /* charcoal */
+  --art: .78;           /* how strongly the drawings show */
+  /* the wall: fine grain plus two faint stains */
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='320'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .32 0 0 0 0 .22 0 0 0 0 .12 0 0 0 .55 -.2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
+    radial-gradient(ellipse 70% 40% at 12% 8%, rgba(150, 96, 50, .09), transparent 70%),
+    radial-gradient(ellipse 60% 35% at 92% 62%, rgba(120, 84, 60, .08), transparent 70%);
+  background-size: 320px 320px, 100% 100%, 100% 100%;
+}
+@media (prefers-color-scheme: dark) {
+  body.cave {
+    --bg: #16120e;
+    --ink: #e9dfd0;
+    --ink-2: #cbbfae;
+    --muted: #9c8d7c;
+    --line: #2d251e;
+    --wash: #1f1914;
+    --accent: #d98e5a;
+    --accent-soft: rgba(217, 142, 90, .55);
+    --accent-wash: rgba(217, 142, 90, .13);
+    --select: rgba(217, 142, 90, .3);
+    --ochre: #c2683d;
+    --ochre-2: #d3a050;
+    --char: #a89886;    /* by torchlight the dark lines read as ash */
+    --art: .7;
+    background-image:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='320'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .9 0 0 0 0 .75 0 0 0 0 .55 0 0 0 .3 -.11'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
+      radial-gradient(ellipse 70% 40% at 12% 8%, rgba(217, 142, 90, .07), transparent 70%),
+      radial-gradient(ellipse 60% 35% at 92% 62%, rgba(217, 142, 90, .05), transparent 70%);
+  }
+}
+
+/* ------------------------------------------------ the figures */
+.cv-sheet { position: absolute; overflow: hidden; }
+.cv-line { fill: none; stroke: var(--char); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.cv-heavy { stroke-width: 2.8; }
+.cv-thin { stroke-width: 1.3; }
+.cv-own { stroke: var(--pig, var(--ochre)); }          /* drawn in the figure's own pigment */
+.cv-fill { fill: var(--pig, var(--ochre-2)); }
+.cv-wash { fill: var(--ochre-2); fill-opacity: .36; }
+.cv-dot { fill: var(--char); }
+.cv-flame { fill: var(--ochre); }
+.cv-s0 { stop-color: var(--ochre); stop-opacity: .8; }
+.cv-s1 { stop-color: var(--ochre); stop-opacity: .62; }
+.cv-s2 { stop-color: var(--ochre); stop-opacity: 0; }
+.cv-red { --pig: var(--ochre); }
+.cv-far { opacity: .62; }
+
+/* ------------------------------------------------ where they sit */
+.cave .article-head { border-bottom: 0; padding-bottom: 6px; margin-bottom: 30px; }
+.cv-frieze { display: block; width: 100%; max-width: 680px; height: auto; margin: 30px 0 0; opacity: var(--art); }
+.cv-cliff { display: block; width: 100%; max-width: 680px; height: auto; margin: 56px 0 0; opacity: var(--art); }
+.cave article { position: relative; }
+.cv-margin { display: none; }
+@media (min-width: 1240px) {
+  .cv-margin { display: block; }
+  .cv-m { position: absolute; height: auto; opacity: calc(var(--art) * .62); pointer-events: none; }
+  .cv-m1 { width: 104px; right: -212px; top: 330px; transform: rotate(9deg); }
+  .cv-m2 { width: 132px; left: -236px; top: 36%; transform: rotate(-4deg); }
+  .cv-m3 { width: 96px; right: -206px; top: 58%; transform: rotate(5deg); }
+  .cv-m4 { width: 96px; left: -208px; top: 80%; transform: rotate(-12deg); }
+}
+.cave .site-footer { margin-top: 56px; }
+
+@media print {
+  body.cave { background-image: none; }
+  .cv-margin { display: none; }
+}
